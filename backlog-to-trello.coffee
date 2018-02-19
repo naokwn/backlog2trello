@@ -21,7 +21,7 @@ module.exports = (robot) ->
   Trello = require("node-trello")
   t = new Trello(process.env.HUBOT_TRELLO_KEY, process.env.HUBOT_TRELLO_TOKEN)
 
-  robot.router.post "/trello/:room", (req, res) ->
+  robot.router.post "/:room", (req, res) ->
     room = req.params.room
     body = req.body
 
