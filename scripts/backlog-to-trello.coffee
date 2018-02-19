@@ -46,7 +46,7 @@ module.exports = (robot) ->
       t.post "/1/cards/", {
         name: title
         desc: description
-        idList: process.env.HUBOT_TRELLO_POST_LIST_SNK
+        idList: process.env.HUBOT_TRELLO_POST_LIST
       }, (err, data) ->
         if (err)
           console.log err
