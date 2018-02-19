@@ -22,7 +22,7 @@ module.exports = (robot) ->
   t = new Trello(process.env.HUBOT_TRELLO_KEY, process.env.HUBOT_TRELLO_TOKEN)
 
   robot.router.post "/trello/:room", (req, res) ->
-#    room = req.params.room
+    room = req.params.room
     body = req.body
 
     try
@@ -53,12 +53,12 @@ module.exports = (robot) ->
           return
 
 #      # カードを追加したら Slack に投稿したい場合はここを利用
-#      if title?
-#          robot.messageRoom room, title
-#          res.end "OK"
-#      else
-#          robot.messageRoom room, "Backlog integration error."
-#          res.end "Error"
+      if title?
+          robot.messageRoom room, title
+          res.end "OK"
+      else
+          robot.messageRoom room, "Backlog integration error."
+          res.end "Error"
 
     catch error
       robot.send
