@@ -19,6 +19,7 @@ backlogUrl = 'https://testam.backlog.jp/'
 
 module.exports = (robot) ->
   Trello = require("node-trello")
+  Request = require 'request'
   trelloInstance = new Trello(process.env.HUBOT_TRELLO_KEY, process.env.HUBOT_TRELLO_TOKEN)
 
   robot.router.post "/trello/:room", (req, res) ->
@@ -44,10 +45,11 @@ module.exports = (robot) ->
           console.log card
           cardId = card.id
           console.log "cardIdHere #{cardId}"
-          trelloInstance.delete "/1/cards/#{cardId}", {}, (err,data) ->
-            if (err)
-              console.log err
-              return
+          request.delete
+            url: "https://api.trello.com/1/cards/#{cardId}"
+            qs:
+              key: 'df3169348f8a25532430bc9977192a82',
+              token: '1f31150e74d5400e53dac7a4ce7b213d986c3a8ee497d8a03644002fe692c53b'
 
     # 1 : 未処理
     # 2 : 処理中
