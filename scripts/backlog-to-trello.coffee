@@ -39,9 +39,9 @@ module.exports = (robot) ->
       if (err)
         console.log err
         return
-      for card in data.cards
-        if card.name is title
-          cardId = card.id
+      for cards in data.cards
+        if cards.name is title
+          cardId = cards.id
 
     # 1 : 未処理
     # 2 : 処理中
