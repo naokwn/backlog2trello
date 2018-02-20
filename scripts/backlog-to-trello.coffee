@@ -30,18 +30,24 @@ module.exports = (robot) ->
     issueUrl = "#{backlogUrl}view/#{body.project.projectKey}-#{body.content.key_id}"
     title = "[#{body.project.projectKey}-#{body.content.key_id}] "
     title += "#{body.content.summary}"
-    title += "#{body.content.status.name}"
+    title += " #{body.content.status.name}"
     description = "#{issueUrl}\n"
     description += "#{body.content.description}"
 
-    #1:課題の追加
-    #2:課題の更新
-    #4:課題の削除
+    cardId = false
+    trelloInstance.get "/1/boards/#{HUBOT_TRELLO_BOARD_ID}/cards", {"cards": "visible", card_fields: "name"}, (err, data) ->
+      if (err)
+        console.log err
+        return
+      for card in data.cards
+        if card.name is title
+          cardId = card.id
 
     # 1 : 未処理
     # 2 : 処理中
     # 3 : 処理済み
     # 4 : 完了
+    console.log(cardId)
 
     try
       switch body.content.status.id
@@ -55,6 +61,11 @@ module.exports = (robot) ->
               console.log err
               return
         when 2
+          if cardId isnt false
+            trelloInstance.delete "1/cards/#{cardId}", (err,data) ->
+              if (err)
+                console.log err
+                return
           trelloInstance.post "/1/cards/", {
             name: title
             desc: description
