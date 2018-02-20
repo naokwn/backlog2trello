@@ -38,8 +38,9 @@ module.exports = (robot) ->
       if (err)
         console.log err
         return
-      console.log(data)
       for card in data
+        console.log(card.name)
+        console.log(title)
         if card.name is title
           cardId = card.id
 
