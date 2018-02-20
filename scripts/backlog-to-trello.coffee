@@ -55,6 +55,7 @@ module.exports = (robot) ->
     # 2 : 処理中
     # 3 : 処理済み
     # 4 : 完了
+    console.log "KADAIID #{body.content.status.id}"
     try
       switch body.content.status.id
         when 1
