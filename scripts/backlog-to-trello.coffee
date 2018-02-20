@@ -41,7 +41,7 @@ module.exports = (robot) ->
         console.log title
         pattern = ///#{title}///
           #`/#{hoge}Script/`
-        pattern.test(card.name)
+        if pattern.test(card.name)
           console.log card
           cardId = card.id
 
