@@ -37,7 +37,8 @@ module.exports = (robot) ->
         console.log err
         return
       for card in data
-        if card.name == title
+        console.log card
+        if card.name.trim() == title.trim()
           cardId = card.id
 
     # 1 : 未処理
