@@ -25,8 +25,6 @@ module.exports = (robot) ->
     room = req.params.room
     body = req.body
 
-    console.log(body)
-
     issueUrl = "#{backlogUrl}view/#{body.project.projectKey}-#{body.content.key_id}"
     title = "[#{body.project.projectKey}-#{body.content.key_id}] "
     title += "#{body.content.summary}"
@@ -39,8 +37,8 @@ module.exports = (robot) ->
         console.log err
         return
       for card in data
-        console.log(card.name)
-        console.log(title)
+        console.log(card)
+        console.log(card.id)
         if card.name == title
           cardId = card.id
 
