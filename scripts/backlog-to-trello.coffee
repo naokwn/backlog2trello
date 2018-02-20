@@ -46,6 +46,7 @@ module.exports = (robot) ->
           #`/#{hoge}Script/`
         #if pattern.test("#{cardNameTrimed}")
           console.log card
+          console.log("cardIdHere #{cardId}")
           cardId = card.id
 
     # 1 : 未処理
