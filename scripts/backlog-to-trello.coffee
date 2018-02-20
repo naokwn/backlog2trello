@@ -44,7 +44,7 @@ module.exports = (robot) ->
           trelloInstance.post "/1/cards/", {
             name: title
             desc: description
-            idList: process.env.HUBOT_TRELLO_POST_LIST_NEW
+            idList: process.env.HUBOT_TRELLO_POST_NEW
           }, (err, data) ->
             if (err)
               console.log err
@@ -54,7 +54,7 @@ module.exports = (robot) ->
           trelloInstance.post "/1/cards/", {
             name: title
             desc: description
-            idList: process.env.HUBOT_TRELLO_POST_LIST_UPDATE
+            idList: process.env.HUBOT_TRELLO_POST_UPDATE
           }, (err, data) ->
             if (err)
               console.log err
