@@ -51,6 +51,11 @@ module.exports = (robot) ->
     # 4 : 完了
 
     console.log("cardId #{cardId}")
+    if cardId isnt false
+      trelloInstance.delete "1/cards/#{cardId}", (err,data) ->
+        if (err)
+          console.log err
+          return
 
     try
       switch body.content.status.id
@@ -64,11 +69,6 @@ module.exports = (robot) ->
               console.log err
               return
         when 2
-          if cardId isnt false
-            trelloInstance.delete "1/cards/#{cardId}", (err,data) ->
-              if (err)
-                console.log err
-                return
           trelloInstance.post "/1/cards/", {
             name: title
             desc: description
