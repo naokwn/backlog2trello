@@ -41,10 +41,10 @@ module.exports = (robot) ->
         cardNameTrimed = card.name.replace(/\s+/g, "")
         console.log titleTrimed
         console.log cardNameTrimed
-
-        pattern = ///#{titleTrimed}///g
+        if "#{titleTrimed}" is "#{cardNameTrimed}"
+        #pattern = ///#{titleTrimed}///g
           #`/#{hoge}Script/`
-        if pattern.test("#{cardNameTrimed}")
+        #if pattern.test("#{cardNameTrimed}")
           console.log card
           cardId = card.id
 
