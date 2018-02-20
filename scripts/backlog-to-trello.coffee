@@ -39,7 +39,7 @@ module.exports = (robot) ->
       for card in data
         console.log card.name
         console.log title
-        pattern = ///#{title}///
+        pattern = ///#{title}///g
           #`/#{hoge}Script/`
         if pattern.test(card.name)
           console.log card
