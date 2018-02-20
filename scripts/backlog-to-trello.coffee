@@ -37,12 +37,12 @@ module.exports = (robot) ->
         console.log err
         return
       for card in data
-        console.log card.name
-        console.log title
         titleTrimed = title.replace(/\s+/g, "")
         cardNameTrimed = card.name.replace(/\s+/g, "")
+        console.log titileTrimed
+        console.log cardNameTrimed
 
-        pattern = ///#{titleTrimed.trim}///g
+        pattern = ///#{titleTrimed}///g
           #`/#{hoge}Script/`
         if pattern.test("#{cardNameTrimed}")
           console.log card
