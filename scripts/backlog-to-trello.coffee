@@ -44,7 +44,7 @@ module.exports = (robot) ->
           console.log card
           cardId = card.id
           console.log "cardIdHere #{cardId}"
-          trelloInstance.delete "/1/cards/#{cardId}", (err,data) ->
+          trelloInstance.delete "/1/cards/#{cardId}", {}, (err,data) ->
             if (err)
               console.log err
               return
