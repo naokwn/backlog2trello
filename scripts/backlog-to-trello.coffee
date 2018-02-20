@@ -45,7 +45,7 @@ module.exports = (robot) ->
           console.log card
           cardId = card.id
           console.log "cardIdHere #{cardId}"
-          request.delete
+          Request.delete
             url: "https://api.trello.com/1/cards/#{cardId}"
             qs:
               key: 'df3169348f8a25532430bc9977192a82',
