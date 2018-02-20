@@ -42,12 +42,10 @@ module.exports = (robot) ->
         console.log titleTrimed
         console.log cardNameTrimed
         if "#{titleTrimed}" is "#{cardNameTrimed}"
-        #pattern = ///#{titleTrimed}///g
-          #`/#{hoge}Script/`
-        #if pattern.test("#{cardNameTrimed}")
           console.log card
-          console.log("cardIdHere #{cardId}")
+          console.log "cardIdHere #{card.id}"
           cardId = card.id
+          console.log "cardIdHere #{cardId}"
           break
 
     # 1 : 未処理
