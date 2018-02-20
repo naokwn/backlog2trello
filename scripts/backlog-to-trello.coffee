@@ -48,6 +48,7 @@ module.exports = (robot) ->
           console.log card
           console.log("cardIdHere #{cardId}")
           cardId = card.id
+          break
 
     # 1 : 未処理
     # 2 : 処理中
