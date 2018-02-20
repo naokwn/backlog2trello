@@ -55,14 +55,6 @@ module.exports = (robot) ->
               console.log err
               return
         when 2
-          cards = trelloInstance.get {
-            url:"/1/lists/#{process.env.HUBOT_TRELLO_BOARD_ID}/cards/",
-          }, (err, data) ->
-            if (err)
-              console.log err
-              return
-
-          console.log(cards)
           trelloInstance.post "/1/cards/", {
             name: title
             desc: description
