@@ -37,8 +37,12 @@ module.exports = (robot) ->
         console.log err
         return
       for card in data
-        console.log card
-        if card.name.trim() == title.trim()
+        console.log card.name
+        console.log title
+        pattern = ///#{title}///
+          #`/#{hoge}Script/`
+        pattern.test(card.name)
+          console.log card
           cardId = card.id
 
     # 1 : 未処理
