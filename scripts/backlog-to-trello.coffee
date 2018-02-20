@@ -41,7 +41,7 @@ module.exports = (robot) ->
       for card in data
         console.log(card.name)
         console.log(title)
-        if card.name is title
+        if card.name == title
           cardId = card.id
 
     # 1 : 未処理
