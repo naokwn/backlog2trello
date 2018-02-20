@@ -55,7 +55,6 @@ module.exports = (robot) ->
     # 2 : 処理中
     # 3 : 処理済み
     # 4 : 完了
-
     try
       switch body.content.status.id
         when 1
@@ -76,16 +75,24 @@ module.exports = (robot) ->
             if (err)
               console.log err
               return
-#        when 4
-#          label = '課題の削除'
-#          trelloInstance.post "/1/cards/", {
-#            name: title
-#            desc: description
-#            idList: process.env.HUBOT_TRELLO_POST_DELETE
-#          }, (err, data) ->
-#            if (err)
-#              console.log err
-#              return
+        when 3
+          trelloInstance.post "/1/cards/", {
+            name: title
+            desc: description
+            idList: process.env.HUBOT_TRELLO_POST_DONE
+          }, (err, data) ->
+            if (err)
+              console.log err
+              return
+        when 4
+          trelloInstance.post "/1/cards/", {
+            name: title
+            desc: description
+            idList: process.env.HUBOT_TRELLO_POST_DONE
+          }, (err, data) ->
+            if (err)
+              console.log err
+              return
         else
           return
 
