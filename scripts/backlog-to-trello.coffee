@@ -45,7 +45,6 @@ module.exports = (robot) ->
     # 3 : 処理済み
     # 4 : 完了
 
-    console.log(card.id)
     console.log("cardId #{cardId}")
 
     try
