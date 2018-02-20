@@ -39,7 +39,7 @@ module.exports = (robot) ->
       for card in data
         titleTrimed = title.replace(/\s+/g, "")
         cardNameTrimed = card.name.replace(/\s+/g, "")
-        console.log titileTrimed
+        console.log titleTrimed
         console.log cardNameTrimed
 
         pattern = ///#{titleTrimed}///g
