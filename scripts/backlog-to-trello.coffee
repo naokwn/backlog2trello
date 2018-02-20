@@ -31,7 +31,6 @@ module.exports = (robot) ->
     description = "#{issueUrl}\n"
     description += "#{body.content.description}"
 
-    cardId = false
     trelloInstance.get "/1/boards/#{process.env.HUBOT_TRELLO_BOARD_ID}/cards", {"cards": "visible"}, (err, data) ->
       if (err)
         console.log err
@@ -43,22 +42,17 @@ module.exports = (robot) ->
         console.log cardNameTrimed
         if "#{titleTrimed}" is "#{cardNameTrimed}"
           console.log card
-          console.log "cardIdHere #{card.id}"
           cardId = card.id
           console.log "cardIdHere #{cardId}"
-          break
+          trelloInstance.delete "/1/cards/#{cardId}", (err,data) ->
+            if (err)
+              console.log err
+              return
 
     # 1 : 未処理
     # 2 : 処理中
     # 3 : 処理済み
     # 4 : 完了
-
-    console.log("cardId #{cardId}")
-    if cardId isnt false
-      trelloInstance.delete "1/cards/#{cardId}", (err,data) ->
-        if (err)
-          console.log err
-          return
 
     try
       switch body.content.status.id
