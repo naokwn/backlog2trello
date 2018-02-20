@@ -35,10 +35,11 @@ module.exports = (robot) ->
     description += "#{body.content.description}"
 
     cardId = false
-    trelloInstance.get "/1/boards/#{process.env.HUBOT_TRELLO_BOARD_ID}/cards", {"cards": "visible", card_fields: "name"}, (err, data) ->
+    trelloInstance.get "/1/boards/#{process.env.HUBOT_TRELLO_BOARD_ID}/cards", {"cards": "visible"}, (err, data) ->
       if (err)
         console.log err
         return
+      console.log(data)
       for cards in data.cards
         if cards.name is title
           cardId = cards.id
