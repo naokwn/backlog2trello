@@ -37,8 +37,6 @@ module.exports = (robot) ->
         console.log err
         return
       for card in data
-        console.log(card)
-        console.log(card.id)
         if card.name == title
           cardId = card.id
 
@@ -46,7 +44,9 @@ module.exports = (robot) ->
     # 2 : 処理中
     # 3 : 処理済み
     # 4 : 完了
-    console.log(cardId)
+
+    console.log(card.id)
+    console.log("cardId #{cardId}")
 
     try
       switch body.content.status.id
