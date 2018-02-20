@@ -30,7 +30,6 @@ module.exports = (robot) ->
     issueUrl = "#{backlogUrl}view/#{body.project.projectKey}-#{body.content.key_id}"
     title = "[#{body.project.projectKey}-#{body.content.key_id}] "
     title += "#{body.content.summary}"
-    title += " #{body.content.status.name}"
     description = "#{issueUrl}\n"
     description += "#{body.content.description}"
 
