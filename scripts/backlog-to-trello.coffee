@@ -12,7 +12,7 @@
 #    ※heroku 環境設定
 #
 # Commands:
-#   
+#
 #
 
 backlogUrl = 'https://testam.backlog.jp/'
@@ -24,6 +24,7 @@ module.exports = (robot) ->
   robot.router.post "/trello/:room", (req, res) ->
     room = req.params.room
     body = req.body
+    console.log(body)
 
     try
       switch body.type
