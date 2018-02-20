@@ -30,6 +30,7 @@ module.exports = (robot) ->
     issueUrl = "#{backlogUrl}view/#{body.project.projectKey}-#{body.content.key_id}"
     title = "[#{body.project.projectKey}-#{body.content.key_id}] "
     title += "#{body.content.summary}"
+    title += "#{body.content.status.name}"
     description = "#{issueUrl}\n"
     description += "#{body.content.description}"
 
@@ -37,10 +38,14 @@ module.exports = (robot) ->
     #2:課題の更新
     #4:課題の削除
 
+    # 1 : 未処理
+    # 2 : 処理中
+    # 3 : 処理済み
+    # 4 : 完了
+
     try
-      switch body.type
+      switch body.content.status.id
         when 1
-          label = '課題の追加'
           trelloInstance.post "/1/cards/", {
             name: title
             desc: description
@@ -50,7 +55,14 @@ module.exports = (robot) ->
               console.log err
               return
         when 2
-          label = '課題の更新'
+          cards = trelloInstance.get {
+            url:"/1/lists/#{process.env.HUBOT_TRELLO_BOARD_ID}/cards/",
+          }, (err, data) ->
+            if (err)
+              console.log err
+              return
+
+          console.log(cards)
           trelloInstance.post "/1/cards/", {
             name: title
             desc: description
@@ -64,7 +76,7 @@ module.exports = (robot) ->
 #          trelloInstance.post "/1/cards/", {
 #            name: title
 #            desc: description
-#            idList: process.env.HUBOT_TRELLO_POST_LIST_DELETE
+#            idList: process.env.HUBOT_TRELLO_POST_DELETE
 #          }, (err, data) ->
 #            if (err)
 #              console.log err
