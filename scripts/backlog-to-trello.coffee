@@ -40,9 +40,9 @@ module.exports = (robot) ->
         console.log err
         return
       console.log(data)
-      for cards in data.cards
-        if cards.name is title
-          cardId = cards.id
+      for card in data
+        if card.name is title
+          cardId = card.id
 
     # 1 : 未処理
     # 2 : 処理中
