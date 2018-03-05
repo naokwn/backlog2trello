@@ -42,6 +42,10 @@ module.exports = (robot) ->
     body = if req.body.payload? then JSON.parse req.body.payload else req.body
 
     # trello に登録するようの内容を整形
+    # 担当者
+    assignee = "#{body.content.assignee.userId}"
+    if asignee != "#{process.env.BACKLOG_USERID}"
+      return
     # 課題のURL
     issueUrl = "https://#{backlogTeam}.backlog.jp/view/#{body.project.projectKey}-#{body.content.key_id}"
     # カードのタイトルに入れる内容 ... 課題の キーと課題の名前
@@ -52,33 +56,31 @@ module.exports = (robot) ->
     description = "優先度 : #{body.content.priority.name}\n"
     description += "#{body.content.description}"
 
-    # トレロにGETリクエスト 対象ボードのラベル一覧を取得
-    # バックログの優先度ID
-    # 2 : 高
-    # 3 : 中
-    # 4 : 低
-    # https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-priority-list/
-    # https://developers.trello.com/reference/#boardsboardidlabels
-    rep = trelloInstance.get "/1/boards/id/labels", (err, data) ->
-      if err
-        console.log.err
-        return
-      for label in data
-        switch "#{body.content.priority.id}"
-          when 2
-            if label.color == 'red'
-              return label.id
-          when 3
-            if label.color == 'yellow'
-              return label.id
-          when 4
-            if label.color == 'green'
-              return label.id
-          else
-            return
+#    # トレロにGETリクエスト 対象ボードのラベル一覧を取得
+#    # バックログの優先度ID
+#    # 2 : 高
+#    # 3 : 中
+#    # 4 : 低
+#    # https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-priority-list/
+#    # https://developers.trello.com/reference/#boardsboardidlabels
+#    rep = trelloInstance.get "/1/boards/id/labels", (err, data) ->
+#      if err
+#        console.log.err
+#        return
+#      for label in data
+#        switch "#{body.content.priority.id}"
+#          when 2
+#            if label.color == 'red'
+#              return label.id
+#          when 3
+#            if label.color == 'yellow'
+#              return label.id
+#          when 4
+#            if label.color == 'green'
+#              return label.id
+#          else
+#            return
 
-    console.log(body)
-    console.log(rep)
 
     # トレロにGETリクエスト 対象ボードのアーカイブされてないカードたちを取得
     # https://trello.readme.io/v1.0/reference#boardsboardidtest
