@@ -39,7 +39,7 @@ module.exports = (robot) ->
     # room = req.params.room
     # body には backlog から次のように JSON が入ってくる
     # https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-recent-updates/
-    body = if request.body.payload? then JSON.parse request.body.payload else request.body
+    body = if req.body.payload? then JSON.parse req.body.payload else req.body
 
     # trello に登録するようの内容を整形
     # 課題のURL
