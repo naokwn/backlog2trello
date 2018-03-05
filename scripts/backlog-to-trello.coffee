@@ -44,7 +44,7 @@ module.exports = (robot) ->
     # trello に登録するようの内容を整形
     # 担当者
     assignee = if "#{body.content.assignee.userId}"? then "#{body.content.assignee.userId}"? else null
-    if asignee != "#{process.env.BACKLOG_USERID}"
+    if assignee != "#{process.env.BACKLOG_USERID}"
       return
     # 課題のURL
     issueUrl = "https://#{backlogTeam}.backlog.jp/view/#{body.project.projectKey}-#{body.content.key_id}"
