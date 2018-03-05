@@ -67,13 +67,13 @@ module.exports = (robot) ->
         switch "#{body.content.priority.id}"
           when 2
             if label.color == 'red'
-              labelId = label.id
+              return label.id
           when 3
             if label.color == 'yellow'
-              labelId = label.id
+              return label.id
           when 4
             if label.color == 'green'
-              labelId = label.id
+              return label.id
           else
             return
 
