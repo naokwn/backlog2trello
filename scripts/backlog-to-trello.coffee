@@ -77,7 +77,6 @@ module.exports = (robot) ->
           else
             return
 
-    console.log(labelId)
     console.log(body)
     console.log(rep)
 
@@ -115,7 +114,7 @@ module.exports = (robot) ->
             name: title
             desc: description
             idList: process.env.HUBOT_TRELLO_POST_NEW
-            idLabels: labelId
+#            idLabels: labelId
           }, (err, data) ->
             if (err)
               console.log err
@@ -125,7 +124,7 @@ module.exports = (robot) ->
             name: title
             desc: description
             idList: process.env.HUBOT_TRELLO_POST_UPDATE
-            idLabels: labelId
+#            idLabels: labelId
           }, (err, data) ->
             if (err)
               console.log err
@@ -135,7 +134,7 @@ module.exports = (robot) ->
             name: title
             desc: description
             idList: process.env.HUBOT_TRELLO_POST_DONE
-            idLabels: labelId
+#            idLabels: labelId
           }, (err, data) ->
             if (err)
               console.log err
@@ -145,7 +144,7 @@ module.exports = (robot) ->
             name: title
             desc: description
             idList: process.env.HUBOT_TRELLO_POST_DONE
-            idLabels: labelId
+#            idLabels: labelId
           }, (err, data) ->
             if (err)
               console.log err
