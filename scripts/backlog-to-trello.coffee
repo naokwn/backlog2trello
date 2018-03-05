@@ -44,33 +44,42 @@ module.exports = (robot) ->
     # trello に登録するようの内容を整形
     # 課題のURL
     issueUrl = "https://#{backlogTeam}.backlog.jp/view/#{body.project.projectKey}-#{body.content.key_id}"
-    # 課題の キーと課題の名前
+    # カードのタイトルに入れる内容 ... 課題の キーと課題の名前
     title = "[#{body.project.projectKey}-#{body.content.key_id}] "
     title += "#{body.content.summary}"
-    # 課題のURL と 内容
+    # カードの本文に入れる内容 ... 課題のURL と 内容
     description = "#{issueUrl}\n"
+    description = "優先度 : #{body.content.priority.name}\n"
     description += "#{body.content.description}"
+
+    # トレロにGETリクエスト 対象ボードのラベル一覧を取得
+    # https://developers.trello.com/reference/#boardsboardidlabels
+    trelloInstance.get "/1/boards/id/labels", (err, data) ->
+      if err
+        console.log.err
+        return
+      for label in data
+        if label.name == "#{body.content.priority.name}"
+          labelId = label.id
 
     # トレロにGETリクエスト 対象ボードのアーカイブされてないカードたちを取得
     # https://trello.readme.io/v1.0/reference#boardsboardidtest
     trelloInstance.get "/1/boards/#{process.env.HUBOT_TRELLO_BOARD_ID}/cards", {"cards": "visible"}, (err, data) ->
-      if (err)
+      if err
         console.log err
         return
       for card in data
         titleTrimed = title.replace(/\s+/g, "")
         cardNameTrimed = card.name.replace(/\s+/g, "")
-        console.log titleTrimed
-        console.log cardNameTrimed
+#        console.log titleTrimed
+#        console.log cardNameTrimed
         if "#{titleTrimed}" is "#{cardNameTrimed}"
-          console.log card
           cardId = card.id
-          console.log "cardIdHere #{cardId}"
           Request.delete
             url: "https://api.trello.com/1/cards/#{cardId}"
             qs:
-              key: 'df3169348f8a25532430bc9977192a82',
-              token: '1f31150e74d5400e53dac7a4ce7b213d986c3a8ee497d8a03644002fe692c53b'
+              key: "#{process.env.HUBOT_TRELLO_KEY}",
+              token: "#{process.env.HUBOT_TRELLO_TOKEN}"
 
     # バックログの課題のステータスによって分岐
     # ステータスによって、事前に設定して置いたリストにカードが入る(好みで処理済みと完了はあえて同じにしてる)
@@ -79,6 +88,7 @@ module.exports = (robot) ->
     # 2 : 処理中
     # 3 : 処理済み
     # 4 : 完了
+    # https://developers.trello.com/reference/#cards-2
     try
       switch body.content.status.id
         when 1
@@ -86,6 +96,7 @@ module.exports = (robot) ->
             name: title
             desc: description
             idList: process.env.HUBOT_TRELLO_POST_NEW
+            idLabels: labelId
           }, (err, data) ->
             if (err)
               console.log err
@@ -95,6 +106,7 @@ module.exports = (robot) ->
             name: title
             desc: description
             idList: process.env.HUBOT_TRELLO_POST_UPDATE
+            idLabels: labelId
           }, (err, data) ->
             if (err)
               console.log err
@@ -104,6 +116,7 @@ module.exports = (robot) ->
             name: title
             desc: description
             idList: process.env.HUBOT_TRELLO_POST_DONE
+            idLabels: labelId
           }, (err, data) ->
             if (err)
               console.log err
@@ -113,6 +126,7 @@ module.exports = (robot) ->
             name: title
             desc: description
             idList: process.env.HUBOT_TRELLO_POST_DONE
+            idLabels: labelId
           }, (err, data) ->
             if (err)
               console.log err
