@@ -53,14 +53,33 @@ module.exports = (robot) ->
     description += "#{body.content.description}"
 
     # トレロにGETリクエスト 対象ボードのラベル一覧を取得
+    # バックログの優先度ID
+    # 2 : 高
+    # 3 : 中
+    # 4 : 低
+    # https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-priority-list/
     # https://developers.trello.com/reference/#boardsboardidlabels
-    trelloInstance.get "/1/boards/id/labels", (err, data) ->
+    rep = trelloInstance.get "/1/boards/id/labels", (err, data) ->
       if err
         console.log.err
         return
       for label in data
-        if label.name == "#{body.content.priority.name}"
-          labelId = label.id
+        switch "#{body.content.priority.id}"
+          when 2
+            if label.color == 'red'
+              labelId = label.id
+          when 3
+            if label.color == 'yellow'
+              labelId = label.id
+          when 4
+            if label.color == 'green'
+              labelId = label.id
+          else
+            return
+
+    console.log(labelId)
+    console.log(body)
+    console.log(rep)
 
     # トレロにGETリクエスト 対象ボードのアーカイブされてないカードたちを取得
     # https://trello.readme.io/v1.0/reference#boardsboardidtest
