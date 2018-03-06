@@ -74,21 +74,21 @@ module.exports = (robot) ->
         return
       for label in data
         console.log "#{body.content.priority.id}"
-        console.log "#{body.content.priority.id}" is 2
-        console.log "#{body.content.priority.id}" is 3
-        console.log "#{body.content.priority.id}" is 4
+        console.log "#{body.content.priority.id}" is "2"
+        console.log "#{body.content.priority.id}" is "3"
+        console.log "#{body.content.priority.id}" is "4"
         console.log label.color
-        console.log label.color is 'red'
-        if "#{body.content.priority.id}" is 2 and label.color is'red'
-          labelId = label.id
-          break
-        else if "#{body.content.priority.id}" is 3 and label.color is 'yellow'
-          labelId = label.id
-          break
-        else if "#{body.content.priority.id}" is 4 and label.color is 'green'
-          labelId = label.id
-          break
-      console.log labelId
+        console.log label.color is "red"
+        switch label.color
+          when "red"
+            if "#{body.content.priority.id}" is "2"
+              labelId = label.id
+          when "yellow"
+            if "#{body.content.priority.id}" is "3"
+              labelId = label.id
+          when "green"
+            if "#{body.content.priority.id}" is "4"
+              labelId = label.id
       return labelId
 
     console.log rep
