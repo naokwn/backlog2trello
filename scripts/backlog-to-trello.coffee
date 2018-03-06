@@ -46,7 +46,7 @@ module.exports = (robot) ->
     console.log(body.content.assignee)
     console.log(body.content.assignee.userId)
     console.log("#{process.env.BACKLOG_USERID}")
-    assignee = if "#{body.content.assignee.userId}"? then "#{body.content.assignee.userId}"? else null
+    assignee = if "#{body.content.assignee.userId}"? then "#{body.content.assignee.userId}" else null
     console.log(assignee)
     if assignee != "#{process.env.BACKLOG_USERID}"
       return
