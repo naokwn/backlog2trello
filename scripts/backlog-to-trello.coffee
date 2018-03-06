@@ -43,16 +43,16 @@ module.exports = (robot) ->
 
     # trello に登録するようの内容を整形
     # へろくの環境変数で設定した担当者以外はスキップ
-    console.log "#{body.content.assignee}"
-    console.log "#{body.content.assignee}"?
-    assignee = if "#{body.content.assignee}"? then "#{body.content.assignee.userId}" else ""
-    if assignee isnt "#{process.env.BACKLOG_USERID}"
+    assignee = "#{body.content.assignee.userId}"
+    if assignee isnt null and assignee isnt "#{process.env.BACKLOG_USERID}"
       return
+
     # 課題のURL
     issueUrl = "https://#{backlogTeam}.backlog.jp/view/#{body.project.projectKey}-#{body.content.key_id}"
     # カードのタイトルに入れる内容 ... 課題の キーと課題の名前
     title = "[#{body.project.projectKey}-#{body.content.key_id}] "
     title += "#{body.content.summary}"
+
     # カードの本文に入れる内容 ... 課題のURL と 内容
     description = "#{issueUrl}\n"
     description = "優先度 : #{body.content.priority.name}\n"
@@ -80,6 +80,8 @@ module.exports = (robot) ->
           break
       return label.id
 
+    console.log rep
+
     # トレロにGETリクエスト 対象ボードのアーカイブされてないカードたちを取得
     # https://trello.readme.io/v1.0/reference#boardsboardidtest
     trelloInstance.get "/1/boards/#{process.env.HUBOT_TRELLO_BOARD_ID}/cards", {"cards": "visible"}, (err, data) ->
@@ -89,8 +91,6 @@ module.exports = (robot) ->
       for card in data
         titleTrimed = title.replace(/\s+/g, "")
         cardNameTrimed = card.name.replace(/\s+/g, "")
-#        console.log titleTrimed
-#        console.log cardNameTrimed
         if "#{titleTrimed}" is "#{cardNameTrimed}"
           cardId = card.id
           Request.delete
