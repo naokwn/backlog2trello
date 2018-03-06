@@ -46,6 +46,11 @@ module.exports = (robot) ->
 #    assignee = "#{body.content.assignee.name}" unless "#{body.content.assignee}"?
     assignee = "#{body.content.assignee}"
     assignee = assignee.name unless assignee?
+    console.log assignee
+    console.log assignee.name
+    console.log assignee isnt null
+    console.log assignee.name isnt "#{process.env.BACKLOG_USERID}"
+    console.log(assignee)
     if assignee isnt null and assignee.name isnt "#{process.env.BACKLOG_USERID}"
       return
 
