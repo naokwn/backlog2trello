@@ -79,6 +79,7 @@ module.exports = (robot) ->
         console.log "#{body.content.priority.id}" is "4"
         console.log label.color
         console.log label.color is "red"
+        labelId = null
         switch label.color
           when "red"
             if "#{body.content.priority.id}" is "2"
@@ -89,7 +90,8 @@ module.exports = (robot) ->
           when "green"
             if "#{body.content.priority.id}" is "4"
               labelId = label.id
-      return labelId
+        console.log labelId
+        return labelId
 
     console.log rep
     console.log labelId
@@ -126,7 +128,7 @@ module.exports = (robot) ->
             name: title
             desc: description
             idList: process.env.HUBOT_TRELLO_POST_NEW
-#            idLabels: labelId
+            idLabels: labelId
           }, (err, data) ->
             if err
               console.log err
@@ -136,7 +138,7 @@ module.exports = (robot) ->
             name: title
             desc: description
             idList: process.env.HUBOT_TRELLO_POST_UPDATE
-#            idLabels: labelId
+            idLabels: labelId
           }, (err, data) ->
             if err
               console.log err
@@ -146,7 +148,7 @@ module.exports = (robot) ->
             name: title
             desc: description
             idList: process.env.HUBOT_TRELLO_POST_DONE
-#            idLabels: labelId
+            idLabels: labelId
           }, (err, data) ->
             if err
               console.log err
@@ -156,7 +158,7 @@ module.exports = (robot) ->
             name: title
             desc: description
             idList: process.env.HUBOT_TRELLO_POST_DONE
-#            idLabels: labelId
+            idLabels: labelId
           }, (err, data) ->
             if err
               console.log err
