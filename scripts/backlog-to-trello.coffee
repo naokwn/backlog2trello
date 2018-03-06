@@ -46,12 +46,14 @@ module.exports = (robot) ->
     # へろくの環境変数で設定した担当者以外はスキップ
 #    assignee = "#{body.content.assignee.name}" unless "#{body.content.assignee}"?
     assignee = "#{body.content.assignee}"
+    assigneeUserId = null
+    assigneeUserId = if "#{body.content.assignee}"? then "#{body.content.assignee.userId}" else null
 #    assignee = assignee.userId unless assignee?
-    console.log assignee?
-    console.log assignee isnt null
-    console.log assignee.userId
-    console.log assignee.userId isnt "#{process.env.BACKLOG_USERID}"
-    if assignee isnt null and assignee.userId isnt "#{process.env.BACKLOG_USERID}"
+    console.log assigneeUserId?
+    console.log assigneeUserId isnt null
+    console.log assigneeUserId
+    console.log assigneeUserId isnt "#{process.env.BACKLOG_USERID}"
+    if assigneeUserId isnt null and assigneeUserId isnt "#{process.env.BACKLOG_USERID}"
       return
 
     # 課題のURL
