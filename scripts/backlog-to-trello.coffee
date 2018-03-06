@@ -56,7 +56,7 @@ module.exports = (robot) ->
 
     # カードの本文に入れる内容 ... 課題のURL と 内容
     description = "#{issueUrl}\n"
-    description = "優先度 : #{body.content.priority.name}\n"
+    description += "優先度 : #{body.content.priority.name}\n"
     description += "#{body.content.description}"
 
     # トレロにGETリクエスト 対象ボードのアーカイブされてないカードたちを取得
