@@ -45,10 +45,8 @@ module.exports = (robot) ->
     # へろくの環境変数で設定した担当者以外はスキップ
 #    assignee = "#{body.content.assignee.name}" unless "#{body.content.assignee}"?
     assignee = "#{body.content.assignee}"
-    console.log assignee
     assignee = assignee.name unless assignee?
-    console.log assignee
-    if assignee isnt null and assignee isnt "#{process.env.BACKLOG_USERID}"
+    if assignee isnt null and assignee.name isnt "#{process.env.BACKLOG_USERID}"
       return
 
     # 課題のURL
