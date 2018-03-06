@@ -43,6 +43,7 @@ module.exports = (robot) ->
 
     # trello に登録するようの内容を整形
     # 担当者
+    console.log(body.content.assignee)
     assignee = if "#{body.content.assignee.userId}"? then "#{body.content.assignee.userId}"? else null
     if assignee != "#{process.env.BACKLOG_USERID}"
       return
