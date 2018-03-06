@@ -73,8 +73,12 @@ module.exports = (robot) ->
         console.log err
         return
       for label in data
-        console.log "#{body.content.priority}"
-        console.log label
+        console.log "#{body.content.priority.id}"
+        console.log "#{body.content.priority.id}" is 2
+        console.log "#{body.content.priority.id}" is 3
+        console.log "#{body.content.priority.id}" is 4
+        console.log label.color
+        console.log label.color is 'red'
         if "#{body.content.priority.id}" is 2 and label.color is'red'
           labelId = label.id
           break
@@ -84,6 +88,7 @@ module.exports = (robot) ->
         else if "#{body.content.priority.id}" is 4 and label.color is 'green'
           labelId = label.id
           break
+      console.log labelId
       return labelId
 
     console.log rep
