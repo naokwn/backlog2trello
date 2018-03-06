@@ -89,8 +89,8 @@ module.exports = (robot) ->
       if err
         console.log err
         return
+      labelId = null
       for label in data
-        labelId = null
         console.log body.content.priority.id
         console.log label.color
         switch label.color
@@ -105,7 +105,6 @@ module.exports = (robot) ->
               labelId = label.id
         console.log labelId
 
-      console.log labelId
       # バックログの課題のステータスによって分岐
       # ステータスによって、事前に設定して置いたリストにカードが入る(好みで処理済みと完了はあえて同じにしてる)
       # ステータスIDと操作は次の通り
