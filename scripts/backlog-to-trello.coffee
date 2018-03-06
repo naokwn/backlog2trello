@@ -35,7 +35,7 @@ module.exports = (robot) ->
   # backlog からのリクエストを受け付ける
   # room で渡ってきた値とリクエストボディを取得
   # 今回はためしに room に Slack チャンネル名 ramdom を渡している(でも使ってない)
-  robot.router.post "/trello/:room", (req, res) ->
+  robot.router.post "/:room", (req, res) ->
     # 次の行をコメントアウト解除で Slack 連携
     # room = req.params.room
 
