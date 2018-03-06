@@ -44,15 +44,9 @@ module.exports = (robot) ->
 
     # trello に登録するようの内容を整形
     # へろくの環境変数で設定した担当者以外はスキップ
-#    assignee = "#{body.content.assignee.name}" unless "#{body.content.assignee}"?
     assignee = "#{body.content.assignee}"
-    assigneeUserId = null
+#    assigneeUserId = null
     assigneeUserId = if "#{body.content.assignee}"? then "#{body.content.assignee.userId}" else null
-#    assignee = assignee.userId unless assignee?
-    console.log assigneeUserId?
-    console.log assigneeUserId isnt null
-    console.log assigneeUserId
-    console.log assigneeUserId isnt "#{process.env.BACKLOG_USERID}"
     if assigneeUserId isnt null and assigneeUserId isnt "#{process.env.BACKLOG_USERID}"
       return
 
@@ -82,14 +76,18 @@ module.exports = (robot) ->
         console.log "#{body.content.priority}"
         console.log label
         if "#{body.content.priority.id}" is 2 and label.color is'red'
+          labelId = label.id
           break
         else if "#{body.content.priority.id}" is 3 and label.color is 'yellow'
+          labelId = label.id
           break
         else if "#{body.content.priority.id}" is 4 and label.color is 'green'
+          labelId = label.id
           break
-      return label.id
+      return labelId
 
     console.log rep
+    console.log labelId
 
     # トレロにGETリクエスト 対象ボードのアーカイブされてないカードたちを取得
     # https://trello.readme.io/v1.0/reference#boardsboardidtest
