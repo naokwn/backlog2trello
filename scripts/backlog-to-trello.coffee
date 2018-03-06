@@ -44,10 +44,10 @@ module.exports = (robot) ->
 
     # trello に登録するようの内容を整形
     # へろくの環境変数で設定した担当者以外はスキップ
-    assignee = "#{body.content.assignee}"
+    assignee = body.content.assignee
     #    assigneeUserId = null
-    assigneeUserId = if "#{body.content.assignee}"? then "#{body.content.assignee.userId}" else null
-    if assigneeUserId isnt null and assigneeUserId isnt "#{process.env.BACKLOG_USERID}"
+    assigneeUserId = if body.content.assignee? then body.content.assignee.userId else null
+    if assigneeUserId isnt null and assigneeUserId isnt process.env.BACKLOG_USERID
       return
 
     # 課題のURL
@@ -93,13 +93,13 @@ module.exports = (robot) ->
         labelId = null
         switch label.color
           when "red"
-            if "#{body.content.priority.id}" is "2"
+            if body.content.priority.id is 2
               labelId = label.id
           when "yellow"
-            if "#{body.content.priority.id}" is "3"
+            if body.content.priority.id is 3
               labelId = label.id
           when "green"
-            if "#{body.content.priority.id}" is "4"
+            if body.content.priority.id is 4
               labelId = label.id
 
       # バックログの課題のステータスによって分岐
@@ -110,6 +110,7 @@ module.exports = (robot) ->
       # 3 : 処理済み
       # 4 : 完了
       # https://developers.trello.com/reference/#cards-2
+      console.log labelId
       try
         switch body.content.status.id
           when 1
