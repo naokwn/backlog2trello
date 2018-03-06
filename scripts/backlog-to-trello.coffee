@@ -42,13 +42,9 @@ module.exports = (robot) ->
     body = if req.body.payload? then JSON.parse req.body.payload else req.body
 
     # trello に登録するようの内容を整形
-    # 担当者
-    console.log(body.content.assignee)
-    console.log(body.content.assignee.userId)
-    console.log("#{process.env.BACKLOG_USERID}")
+    # へろくの環境変数で設定した担当者以外はスキップ
     assignee = if "#{body.content.assignee.userId}"? then "#{body.content.assignee.userId}" else null
-    console.log(assignee)
-    if assignee != "#{process.env.BACKLOG_USERID}"
+    if assignee isnt "#{process.env.BACKLOG_USERID}"
       return
     # 課題のURL
     issueUrl = "https://#{backlogTeam}.backlog.jp/view/#{body.project.projectKey}-#{body.content.key_id}"
@@ -67,23 +63,19 @@ module.exports = (robot) ->
 #    # 4 : 低
 #    # https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-priority-list/
 #    # https://developers.trello.com/reference/#boardsboardidlabels
-#    rep = trelloInstance.get "/1/boards/id/labels", (err, data) ->
-#      if err
-#        console.log.err
-#        return
-#      for label in data
-#        switch "#{body.content.priority.id}"
-#          when 2
-#            if label.color == 'red'
-#              return label.id
-#          when 3
-#            if label.color == 'yellow'
-#              return label.id
-#          when 4
-#            if label.color == 'green'
-#              return label.id
-#          else
-#            return
+    rep = trelloInstance.get "/1/boards/id/labels", (err, data) ->
+      if err
+        console.log.err
+        return
+      for label in data
+        if "#{body.content.priority.id}" is 2 and label.color is'red'
+          return label.id
+        else if "#{body.content.priority.id}" is 3 and label.color is 'yellow'
+          return label.id
+        else if "#{body.content.priority.id}" is 4 and label.color is 'green'
+          return label.id
+        else
+          return
 
 
     # トレロにGETリクエスト 対象ボードのアーカイブされてないカードたちを取得
@@ -122,7 +114,7 @@ module.exports = (robot) ->
             idList: process.env.HUBOT_TRELLO_POST_NEW
 #            idLabels: labelId
           }, (err, data) ->
-            if (err)
+            if err
               console.log err
               return
         when 2
@@ -132,7 +124,7 @@ module.exports = (robot) ->
             idList: process.env.HUBOT_TRELLO_POST_UPDATE
 #            idLabels: labelId
           }, (err, data) ->
-            if (err)
+            if err
               console.log err
               return
         when 3
@@ -142,7 +134,7 @@ module.exports = (robot) ->
             idList: process.env.HUBOT_TRELLO_POST_DONE
 #            idLabels: labelId
           }, (err, data) ->
-            if (err)
+            if err
               console.log err
               return
         when 4
@@ -152,7 +144,7 @@ module.exports = (robot) ->
             idList: process.env.HUBOT_TRELLO_POST_DONE
 #            idLabels: labelId
           }, (err, data) ->
-            if (err)
+            if err
               console.log err
               return
         else
