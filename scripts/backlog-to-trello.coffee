@@ -65,18 +65,18 @@ module.exports = (robot) ->
 #    # https://developers.trello.com/reference/#boardsboardidlabels
     rep = trelloInstance.get "/1/boards/id/labels", (err, data) ->
       if err
-        console.log.err
+        console.log err
         return
       for label in data
+        console.log "#{body.content.priority}"
+        console.log label
         if "#{body.content.priority.id}" is 2 and label.color is'red'
-          return label.id
+          break
         else if "#{body.content.priority.id}" is 3 and label.color is 'yellow'
-          return label.id
+          break
         else if "#{body.content.priority.id}" is 4 and label.color is 'green'
-          return label.id
-        else
-          return
-
+          break
+      return label.id
 
     # トレロにGETリクエスト 対象ボードのアーカイブされてないカードたちを取得
     # https://trello.readme.io/v1.0/reference#boardsboardidtest
