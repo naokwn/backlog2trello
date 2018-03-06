@@ -91,7 +91,8 @@ module.exports = (robot) ->
             if "#{body.content.priority.id}" is "4"
               labelId = label.id
         console.log labelId
-        callback null,labelId
+      console.log labelId
+      callback null,labelId
     console.log(resp)
 
     # トレロにGETリクエスト 対象ボードのアーカイブされてないカードたちを取得
