@@ -46,9 +46,9 @@ module.exports = (robot) ->
 #    assignee = "#{body.content.assignee.name}" unless "#{body.content.assignee}"?
     assignee = "#{body.content.assignee}"
     console.log assignee
-    assigneeName = assignee.name unless assignee?
-    console.log assigneeName
-    if assigneeName isnt null and assigneeName isnt "#{process.env.BACKLOG_USERID}"
+    assignee = assignee.name unless assignee?
+    console.log assignee
+    if assignee isnt null and assignee isnt "#{process.env.BACKLOG_USERID}"
       return
 
     # 課題のURL
