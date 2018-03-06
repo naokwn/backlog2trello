@@ -43,8 +43,12 @@ module.exports = (robot) ->
 
     # trello に登録するようの内容を整形
     # へろくの環境変数で設定した担当者以外はスキップ
-    assignee = "#{body.content.assignee.userId}"
-    if assignee isnt null and assignee isnt "#{process.env.BACKLOG_USERID}"
+#    assignee = "#{body.content.assignee.name}" unless "#{body.content.assignee}"?
+    assignee = "#{body.content.assignee}"
+    console.log assignee
+    assigneeName = if assignee isnt null then assignee.name else null
+    console.log assigneeName
+    if assigneeName isnt null and assigneeName isnt "#{process.env.BACKLOG_USERID}"
       return
 
     # 課題のURL
