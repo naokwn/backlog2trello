@@ -68,7 +68,7 @@ module.exports = (robot) ->
 #    # 4 : 低
 #    # https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-priority-list/
 #    # https://developers.trello.com/reference/#boardsboardidlabels
-    rep = trelloInstance.get "/1/boards/#{process.env.HUBOT_TRELLO_BOARD_ID}/labels", (err, data) ->
+    trelloInstance.get "/1/boards/#{process.env.HUBOT_TRELLO_BOARD_ID}/labels", (err, data) ->
       if err
         console.log err
         return
@@ -93,7 +93,6 @@ module.exports = (robot) ->
         console.log labelId
         return labelId
 
-    console.log rep
     console.log labelId
 
     # トレロにGETリクエスト 対象ボードのアーカイブされてないカードたちを取得
